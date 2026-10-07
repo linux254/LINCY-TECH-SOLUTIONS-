@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lincy Tech Solutions</title>
+<style>
+:root{--bg:#f7f9fc;--card:#fff;--text:#14213d;--muted:#5b6475;--accent:#0a7d5a;--line:#e1e6ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1420;--card:#172033;--text:#eef2f9;--muted:#9aa6bb;--accent:#2fcf9b;--line:#263250}}
+:root[data-theme="dark"]{--bg:#0e1420;--card:#172033;--text:#eef2f9;--muted:#9aa6bb;--accent:#2fcf9b;--line:#263250}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 40px}
+header{padding:36px 0 20px}
+h1{margin:0 0 6px;font-size:28px}
+h2{margin:32px 0 12px;font-size:21px}
+p{margin:0 0 12px;color:var(--muted)}
+.grid{display:grid;gap:12px}
+@media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 4px;font-size:17px}
+.price{color:var(--accent);font-weight:700;margin:6px 0 10px}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:10px 16px;border-radius:8px;font-weight:600;font-size:15px}
+.hero-btn{padding:13px 22px;font-size:16px}
+label{display:block;font-size:14px;margin:10px 0 4px;color:var(--muted)}
+input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font-size:16px}
+.result{margin-top:12px;padding:12px;border-radius:8px;background:var(--bg);border:1px dashed var(--line);color:var(--text)}
+.note{font-size:13px}
+footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Lincy Tech Solutions</h1>
+<p>ICT services, websites, CVs and digital products. Based in Kisii, Kenya.</p>
+<a class="btn hero-btn" id="hero" href="#">Chat on WhatsApp</a>
+</header>
+
+<h2>Services</h2>
+<div class="grid" id="services"></div>
+
+<h2>Digital Products</h2>
+<div class="grid" id="products"></div>
+<p class="note" style="margin-top:10px">Pay by M-Pesa. After payment, your file is sent on WhatsApp.</p>
+
+<h2>Free Forex Position Size Calculator</h2>
+<div class="card">
+<label>Account balance (USD)</label><input id="bal" type="number" inputmode="decimal" value="100">
+<label>Risk per trade (%)</label><input id="risk" type="number" inputmode="decimal" value="1">
+<label>Stop loss (pips)</label><input id="sl" type="number" inputmode="decimal" value="20">
+<label>Pip value per standard lot (USD, usually 10 for EUR/USD)</label><input id="pv" type="number" inputmode="decimal" value="10">
+<div class="result" id="out"></div>
+</div>
+<p class="note" style="margin-top:10px">Risk warning: forex trading is risky and most retail traders lose money. This calculator is for education only, not financial advice.</p>
+
+<footer>&copy; Lincy Tech Solutions &middot; Kisii, Kenya &middot; <a id="foot" href="#" style="color:var(--accent)">WhatsApp 0114913589</a></footer>
+</div>
+
+<script>
+var NUM="254114913589";
+function wa(t){return "https://wa.me/"+NUM+"?text="+encodeURIComponent(t)}
+var services=[
+["Website Design","Websites for shops, salons, DJs, schools and small businesses.","From KSh 3,000"],
+["CV & Cover Letters","ATS-friendly CV formatting and cover letters.","From KSh 300"],
+["Computer & Network Setup","Setup, troubleshooting, Wi-Fi and software installation.","From KSh 500"],
+["ICT Tutoring","Computer packages, web basics and office software.","From KSh 300/hr"]
+];
+var products=[
+["CV Template Pack","Editable professional CV templates.","KSh 200"],
+["Forex Risk Management Guide","Simple beginner guide to protecting your capital.","KSh 300"],
+["Trading Journal Sheet","Track trades and review your performance.","KSh 250"],
+["ICT Study Notes","Clear notes for diploma and certificate students.","KSh 300"]
+];
+function render(id,list,verb){
+var h="";
+list.forEach(function(x){
+h+='<div class="card"><h3>'+x[0]+'</h3><p>'+x[1]+'</p><div class="price">'+x[2]+'</div><a class="btn" href="'+wa(verb+x[0]+" from Lincy Tech Solutions")+'">'+(verb==="I want to order: "?"Order on WhatsApp":"Request on WhatsApp")+'</a></div>';
+});
+document.getElementById(id).innerHTML=h;
+}
+render("services",services,"I need this service: ");
+render("products",products,"I want to order: ");
+var g=wa("Hello Lincy Tech Solutions, I need help.");
+document.getElementById("hero").href=g;
+document.getElementById("foot").href=g;
+function calc(){
+var b=+bal.value,r=+risk.value,s=+sl.value,p=+pv.value;
+if(!(b>0&&r>0&&s>0&&p>0)){out.textContent="Enter valid numbers.";return}
+var amt=b*r/100,lots=amt/(s*p);
+out.innerHTML="Risk amount: <b>$"+amt.toFixed(2)+"</b><br>Position size: <b>"+lots.toFixed(3)+" lots</b>";
+}
+["bal","risk","sl","pv"].forEach(function(i){document.getElementById(i).addEventListener("input",calc)});
+calc();
+</script>
+</body>
+</html>
