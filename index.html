@@ -4,94 +4,234 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lincy Tech Solutions</title>
+<meta name="description" content="Websites, business plans, project editing, CVs, design, IT support and training in Kisii, Kenya. Order on WhatsApp.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f9fc;--card:#fff;--text:#14213d;--muted:#5b6475;--accent:#0a7d5a;--line:#e1e6ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1420;--card:#172033;--text:#eef2f9;--muted:#9aa6bb;--accent:#2fcf9b;--line:#263250}}
-:root[data-theme="dark"]{--bg:#0e1420;--card:#172033;--text:#eef2f9;--muted:#9aa6bb;--accent:#2fcf9b;--line:#263250}
+/* Layout: sticky header, hero, filterable service grid, featured business and editing panels, products, calculator */
+:root{--bg:#f5f8fb;--card:#ffffff;--ink:#12213b;--mute:#5a6678;--line:#dfe6ee;--accent:#0a7d5a;--accent-ink:#ffffff;--accent2:#1b5fd1;--soft:#e4f4ee;--dark:#12213b;--dark-ink:#eef3fa}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1523;--card:#152036;--ink:#eef3fa;--mute:#9db0c8;--line:#26354f;--accent:#2fcf9b;--accent-ink:#06261b;--accent2:#6aa2ff;--soft:#12332c;--dark:#0a101c;--dark-ink:#eef3fa;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1523;--card:#152036;--ink:#eef3fa;--mute:#9db0c8;--line:#26354f;--accent:#2fcf9b;--accent-ink:#06261b;--accent2:#6aa2ff;--soft:#12332c;--dark:#0a101c;--dark-ink:#eef3fa;color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
-.wrap{max-width:760px;margin:0 auto;padding:0 16px 40px}
-header{padding:36px 0 20px}
-h1{margin:0 0 6px;font-size:28px}
-h2{margin:32px 0 12px;font-size:21px}
-p{margin:0 0 12px;color:var(--muted)}
-.grid{display:grid;gap:12px}
-@media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
-.card h3{margin:0 0 4px;font-size:17px}
-.price{color:var(--accent);font-weight:700;margin:6px 0 10px}
-.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:10px 16px;border-radius:8px;font-weight:600;font-size:15px}
-.hero-btn{padding:13px 22px;font-size:16px}
-label{display:block;font-size:14px;margin:10px 0 4px;color:var(--muted)}
-input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font-size:16px}
-.result{margin-top:12px;padding:12px;border-radius:8px;background:var(--bg);border:1px dashed var(--line);color:var(--text)}
-.note{font-size:13px}
-footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;line-height:1.55}
+h1,h2,h3{font-family:'Sora',system-ui,sans-serif;margin:0;line-height:1.15;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.brand{font-family:'Sora',sans-serif;font-weight:800;font-size:1.15rem}
+.brand span{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:var(--accent-ink);text-decoration:none;border:0;padding:11px 18px;border-radius:10px;font:700 .95rem 'DM Sans',sans-serif;cursor:pointer;min-height:44px}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.sm{padding:8px 14px;min-height:40px;font-size:.88rem}
+.hero{padding-block:34px 18px;display:grid;gap:18px}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.hero h1{font-size:clamp(2rem,7vw,3.4rem);font-weight:800;max-width:18ch}
+.hero p.lead{color:var(--mute);font-size:1.08rem;max-width:56ch}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.facts{display:flex;gap:8px 18px;flex-wrap:wrap;color:var(--mute);font-size:.9rem}
+.facts b{color:var(--ink)}
+section{padding-block:30px 6px}
+section>.wrap>h2,.sech{font-size:clamp(1.5rem,5vw,2.1rem);margin-bottom:6px}
+.sub{color:var(--mute);margin-bottom:16px;max-width:60ch}
+.tools{display:grid;gap:10px;margin-bottom:14px}
+.search{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;font-size:1rem}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:999px;font:600 .9rem 'DM Sans',sans-serif;cursor:pointer;min-height:40px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card .cat{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);font-weight:700}
+.card h3{font-size:1.05rem}
+.card p{color:var(--mute);font-size:.93rem;flex:1}
+.price{font-weight:700;color:var(--accent);margin-top:2px}
+.card .btn{margin-top:8px;align-self:flex-start}
+#grid{grid-template-columns:repeat(auto-fill,minmax(165px,1fr))}
+@media(min-width:700px){#grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}}
+#grid .card{padding:14px}#grid .card h3{font-size:1rem}#grid .card p{font-size:.88rem}
+.empty{padding:18px;border:1.5px dashed var(--line);border-radius:12px;color:var(--mute)}
+.feat{display:grid;gap:14px}
+@media(min-width:760px){.feat{grid-template-columns:1fr 1fr}}
+.panel{background:var(--dark);color:var(--dark-ink);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.panel .eyebrow{color:#2fcf9b}
+.panel h3{font-size:1.4rem}
+.panel p{color:#b8c6dc}
+.panel ul{margin:0;padding-left:18px;color:#d5deee;display:grid;gap:4px}
+.panel .note{font-size:.88rem;border-top:1px solid #2a3b59;padding-top:10px;color:#9db0c8}
+.panel .btn{align-self:flex-start;background:#2fcf9b;color:#06261b}
+.steps{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));list-style:none;padding:0;margin:0}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.steps b{display:block;font-family:'Sora',sans-serif;margin-bottom:4px}
+.steps span{color:var(--mute);font-size:.93rem}
+.calc{max-width:520px}
+label{display:block;font-size:.9rem;margin:10px 0 4px;color:var(--mute)}
+input.num{width:100%;padding:11px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+.result{margin-top:12px;padding:12px;border-radius:8px;background:var(--bg);border:1px dashed var(--line)}
+.note2{font-size:.85rem;color:var(--mute);margin-top:8px}
+footer{margin-top:36px;padding-block:22px 90px;border-top:1px solid var(--line);color:var(--mute);font-size:.88rem}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:700;padding:14px 20px;border-radius:999px;box-shadow:0 10px 26px rgba(0,0,0,.28)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
-<h1>Lincy Tech Solutions</h1>
-<p>ICT services, websites, CVs and digital products. Based in Kisii, Kenya.</p>
-<a class="btn hero-btn" id="hero" href="#">Chat on WhatsApp</a>
-</header>
+<header class="top"><div class="wrap"><div class="brand">Lincy <span>Tech</span> Solutions</div><a class="btn sm" id="hdrWa" href="#" target="_blank" rel="noopener">WhatsApp us</a></div></header>
 
-<h2>Services</h2>
-<div class="grid" id="services"></div>
-
-<h2>Digital Products</h2>
-<div class="grid" id="products"></div>
-<p class="note" style="margin-top:10px">Pay by M-Pesa. After payment, your file is sent on WhatsApp.</p>
-
-<h2>Free Forex Position Size Calculator</h2>
-<div class="card">
-<label>Account balance (USD)</label><input id="bal" type="number" inputmode="decimal" value="100">
-<label>Risk per trade (%)</label><input id="risk" type="number" inputmode="decimal" value="1">
-<label>Stop loss (pips)</label><input id="sl" type="number" inputmode="decimal" value="20">
-<label>Pip value per standard lot (USD, usually 10 for EUR/USD)</label><input id="pv" type="number" inputmode="decimal" value="10">
-<div class="result" id="out"></div>
+<main>
+<div class="wrap hero">
+  <span class="eyebrow">Kisii, Kenya &middot; Online services</span>
+  <h1>Websites, business plans, editing, design and IT help</h1>
+  <p class="lead">One place for the digital and document work your business, school or career needs. Pick a service, message us on WhatsApp and get a clear quote.</p>
+  <div class="cta"><a class="btn" href="#services">Browse all services</a><a class="btn ghost" href="#business">Business plans and project editing</a></div>
+  <div class="facts"><span><b id="count">0</b> services</span><span>Order on WhatsApp</span><span>Pay by M-Pesa</span><span>Files delivered online</span></div>
 </div>
-<p class="note" style="margin-top:10px">Risk warning: forex trading is risky and most retail traders lose money. This calculator is for education only, not financial advice.</p>
 
-<footer>&copy; Lincy Tech Solutions &middot; Kisii, Kenya &middot; <a id="foot" href="#" style="color:var(--accent)">WhatsApp 0114913589</a></footer>
-</div>
+<section id="services"><div class="wrap">
+  <h2>All services</h2>
+  <p class="sub">Search or choose a category. Tap Request to message us with the service already filled in.</p>
+  <div class="tools">
+    <input class="search" id="q" type="search" placeholder="Search services, for example business plan, website, CV" aria-label="Search services">
+    <div class="chips" id="chips" role="group" aria-label="Service categories"></div>
+  </div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="business"><div class="wrap">
+  <h2>Business plans and project editing</h2>
+  <p class="sub">Two of our most requested services, done properly.</p>
+  <div class="feat">
+    <div class="panel">
+      <span class="eyebrow">Business plans</span>
+      <h3>A plan that is ready for the bank, investor or fund</h3>
+      <p>We turn your idea into a clear, professional plan you can present with confidence.</p>
+      <ul><li>Executive summary and business description</li><li>Market and competitor analysis</li><li>Operations and marketing plan</li><li>Financial projections and budget in Excel</li><li>Funding request, delivered in Word and PDF</li></ul>
+      <p class="note">You share the idea and the numbers you have. We shape the plan, you review it, and we revise until it is right.</p>
+      <a class="btn" id="bpWa" href="#" target="_blank" rel="noopener">Start my business plan</a>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Project editing</span>
+      <h3>Polish your own project, report or proposal</h3>
+      <p>For college, university and final-year projects, research proposals and reports.</p>
+      <ul><li>Grammar, spelling and clarity</li><li>Structure and flow of chapters</li><li>Formatting, APA or Harvard referencing</li><li>Table of contents, headings and page numbers</li><li>Presentation slides for your defence</li></ul>
+      <p class="note">We edit and improve your own work. Your ideas and research stay yours, and we do not write assignments for submission.</p>
+      <a class="btn" id="peWa" href="#" target="_blank" rel="noopener">Get my project edited</a>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>How ordering works</h2>
+  <p class="sub">Simple, and everything happens online.</p>
+  <ol class="steps">
+    <li><b>1. Message us</b><span>Tap a service or WhatsApp us with what you need and your deadline.</span></li>
+    <li><b>2. Get a quote</b><span>We confirm the scope and price, then you pay by M-Pesa.</span></li>
+    <li><b>3. We deliver</b><span>You receive your files on WhatsApp or email, with revisions included as agreed.</span></li>
+  </ol>
+</div></section>
+
+<section id="products"><div class="wrap">
+  <h2>Digital products</h2>
+  <p class="sub">Instant downloads sent on WhatsApp after M-Pesa payment.</p>
+  <div class="grid" id="products"></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Free forex position size calculator</h2>
+  <p class="sub">Work out your lot size from your risk.</p>
+  <div class="card calc">
+    <label for="bal">Account balance (USD)</label><input class="num" id="bal" type="number" inputmode="decimal" value="100">
+    <label for="risk">Risk per trade (%)</label><input class="num" id="risk" type="number" inputmode="decimal" value="1">
+    <label for="sl">Stop loss (pips)</label><input class="num" id="sl" type="number" inputmode="decimal" value="20">
+    <label for="pv">Pip value per standard lot (USD, usually 10 for EUR/USD)</label><input class="num" id="pv" type="number" inputmode="decimal" value="10">
+    <div class="result" id="out"></div>
+    <p class="note2">Risk warning: forex trading is risky and most retail traders lose money. This calculator is for education only, not financial advice.</p>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">&copy; Lincy Tech Solutions &middot; Kisii, Kenya &middot; <a id="foot" href="#" target="_blank" rel="noopener">WhatsApp 0114 913 589</a></div></footer>
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener">WhatsApp us</a>
 
 <script>
 var NUM="254114913589";
 function wa(t){return "https://wa.me/"+NUM+"?text="+encodeURIComponent(t)}
-var services=[
-["Website Design","Websites for shops, salons, DJs, schools and small businesses.","From KSh 5,000"],
-["CV & Cover Letters","ATS-friendly CV formatting and cover letters.","From KSh 300"],
-["Computer & Network Setup","Setup, troubleshooting, Wi-Fi and software installation.","From KSh 1000"],
-["ICT Tutoring","Computer packages, web basics and office software.","From KSh 300/hr"]
+// Each service: [category key, name, description, price label]. Edit prices here.
+var CATS=[["all","All"],["web","Web and software"],["biz","Business and documents"],["edit","Editing and projects"],["design","Design and media"],["it","IT support"],["train","Training"],["mkt","Marketing"]];
+var CATNAME={web:"Web and software",biz:"Business and documents",edit:"Editing and projects",design:"Design and media",it:"IT support",train:"Training",mkt:"Marketing"};
+var Q="Request a quote";
+var S=[
+["web","Website design","Websites for shops, salons, DJs, schools and small businesses.","From KSh 3,000"],
+["web","Online shop (e-commerce)","Product pages with orders by WhatsApp or M-Pesa.",Q],
+["web","Landing page","One focused page for an offer, event or launch.",Q],
+["web","Custom web app or system","Booking, inventory, school and shop systems with an admin dashboard.",Q],
+["web","Website redesign and fixes","Modernise or repair a website that looks old or does not work.",Q],
+["web","Hosting, domain and email setup","Get online with your own web address and business email.",Q],
+["web","Website maintenance","Updates, backups and security checks so your site stays healthy.",Q],
+["web","SEO and Google Business Profile","Help local customers find you on Google and Maps.",Q],
+["biz","Business plan writing","A complete plan with market, operations and financial projections.",Q],
+["biz","Business proposals and pitch decks","Clear proposals and slides that win clients and investors.",Q],
+["biz","Grant and funding proposals","Proposals for grants, loans and youth or community funds.",Q],
+["biz","Financial projections and budgets","Cash flow, profit forecasts and budgets in Excel.",Q],
+["biz","Company profile and brochure","A professional profile that introduces your business.",Q],
+["biz","Business registration guidance","Help with business name, KRA PIN and eCitizen steps.",Q],
+["biz","CV and cover letters","ATS-friendly CVs and cover letters that get interviews.","From KSh 300"],
+["biz","LinkedIn profile makeover","A profile that recruiters and clients notice.",Q],
+["edit","Project editing and proofreading","Polish your own college, university or final-year project.",Q],
+["edit","Report and thesis formatting","APA or Harvard referencing, headings, contents page and page numbers.",Q],
+["edit","Research proposal editing","Improve clarity and structure of your proposal.",Q],
+["edit","Presentation design","PowerPoint slides for projects, defences and pitches.",Q],
+["edit","Typing and data entry","Fast, accurate typing and spreadsheet entry.",Q],
+["edit","Document conversion and PDF work","Word to PDF, merging, splitting and scanned text.",Q],
+["edit","Excel and Sheets help","Formulas, data cleaning and simple dashboards.",Q],
+["design","Poster and flyer design","Eye-catching posters and flyers for events and offers.",Q],
+["design","Logo and brand identity","A logo, colours and fonts that fit your business.",Q],
+["design","Social media graphics","Post, story and cover designs that look consistent.",Q],
+["design","Business cards and letterheads","Print-ready stationery for your business.",Q],
+["design","Video editing","Short ads, reels and event videos.",Q],
+["design","Photo editing","Retouching, colour correction and cut-outs.",Q],
+["it","Computer and network setup","Setup, troubleshooting and software installation.","From KSh 500"],
+["it","Software install and repair","Windows, Office and driver installs and fixes.",Q],
+["it","Wi-Fi setup and support","Router setup, coverage and connection problems.",Q],
+["it","Data backup and recovery","Protect your files and recover lost data where possible.",Q],
+["it","Virus and malware cleanup","Remove infections and secure your computer.",Q],
+["it","Remote IT support","Get help over a call or screen share without leaving home.",Q],
+["it","Email and Microsoft Office setup","Business email, Office accounts and sign-in problems.",Q],
+["train","ICT tutoring","Private lessons for students and beginners.","From KSh 300/hr"],
+["train","Computer packages","Word, Excel, PowerPoint and internet skills.",Q],
+["train","Web development basics","HTML, CSS and JavaScript from scratch.",Q],
+["train","Career and online skills coaching","CV, interviews, freelancing and working online.",Q],
+["mkt","Social media management","Planning, posting and growing your business pages.",Q],
+["mkt","WhatsApp Business setup","Catalogue, auto-replies, labels and a professional profile.",Q],
+["mkt","Content and copywriting","Posts, captions and ad text that sell.",Q],
+["mkt","Facebook and Instagram ads","Set up and manage ads for local customers.",Q],
+["mkt","Promo videos and ads","Short vertical videos for WhatsApp, TikTok and Reels.",Q]
 ];
-var products=[
-["CV Template Pack","Editable professional CV templates.","KSh 200"],
-["Forex Risk Management Guide","Simple beginner guide to protecting your capital.","KSh 300"],
-["Trading Journal Sheet","Track trades and review your performance.","KSh 250"],
-["ICT Study Notes","Clear notes for diploma and certificate students.","KSh 300"]
-];
-function render(id,list,verb){
-var h="";
-list.forEach(function(x){
-h+='<div class="card"><h3>'+x[0]+'</h3><p>'+x[1]+'</p><div class="price">'+x[2]+'</div><a class="btn" href="'+wa(verb+x[0]+" from Lincy Tech Solutions")+'">'+(verb==="I want to order: "?"Order on WhatsApp":"Request on WhatsApp")+'</a></div>';
-});
-document.getElementById(id).innerHTML=h;
+var P=[["CV Template Pack","Editable Word templates for graduates and professionals.","KSh 200"],["Forex Risk Management Guide","A simple beginner guide to protecting your capital.","KSh 300"],["Trading Journal Sheet","Track and review every trade.","KSh 250"],["ICT Study Notes","Clear notes for diploma and certificate students.","KSh 300"]];
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+var cur="all",grid=document.getElementById("grid"),qEl=document.getElementById("q");
+function card(cat,n,d,p,verb){
+  return '<div class="card">'+(cat?'<span class="cat">'+esc(CATNAME[cat])+'</span>':'')+'<h3>'+esc(n)+'</h3><p>'+esc(d)+'</p><div class="price">'+esc(p)+'</div><a class="btn sm" target="_blank" rel="noopener" href="'+wa(verb+n+" from Lincy Tech Solutions")+'">'+(verb==="I want to order: "?"Order":"Request")+'</a></div>';
 }
-render("services",services,"I need this service: ");
-render("products",products,"I want to order: ");
+function draw(){
+  var q=qEl.value.trim().toLowerCase();
+  var list=S.filter(function(s){return (cur==="all"||s[0]===cur)&&(!q||(s[1]+" "+s[2]+" "+CATNAME[s[0]]).toLowerCase().indexOf(q)>-1)});
+  grid.innerHTML=list.length?list.map(function(s){return card(s[0],s[1],s[2],s[3],"I need this service: ")}).join(""):'<div class="empty">No service matches that search. Message us on WhatsApp and describe what you need.</div>';
+}
+document.getElementById("chips").innerHTML=CATS.map(function(c){return '<button class="chip" type="button" data-k="'+c[0]+'" aria-pressed="'+(c[0]==="all")+'">'+c[1]+'</button>'}).join("");
+document.getElementById("chips").addEventListener("click",function(e){var b=e.target.closest(".chip");if(!b)return;cur=b.dataset.k;document.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed",x===b)});draw()});
+qEl.addEventListener("input",draw);
+document.getElementById("products").innerHTML=P.map(function(p){return card(null,p[0],p[1],p[2],"I want to order: ")}).join("");
+document.getElementById("count").textContent=S.length;
 var g=wa("Hello Lincy Tech Solutions, I need help.");
-document.getElementById("hero").href=g;
-document.getElementById("foot").href=g;
-function calc(){
-var b=+bal.value,r=+risk.value,s=+sl.value,p=+pv.value;
-if(!(b>0&&r>0&&s>0&&p>0)){out.textContent="Enter valid numbers.";return}
-var amt=b*r/100,lots=amt/(s*p);
-out.innerHTML="Risk amount: <b>$"+amt.toFixed(2)+"</b><br>Position size: <b>"+lots.toFixed(3)+" lots</b>";
-}
-["bal","risk","sl","pv"].forEach(function(i){document.getElementById(i).addEventListener("input",calc)});
-calc();
+["hdrWa","fab","foot"].forEach(function(i){document.getElementById(i).href=g});
+document.getElementById("bpWa").href=wa("Hello Lincy Tech Solutions, I need a business plan. My business idea is: ");
+document.getElementById("peWa").href=wa("Hello Lincy Tech Solutions, I need my project edited. Level: / Pages: / Deadline: ");
+function $(i){return document.getElementById(i)}
+function calc(){var b=+$("bal").value,r=+$("risk").value,s=+$("sl").value,p=+$("pv").value;
+  if(!(b>0&&r>0&&s>0&&p>0)){$("out").textContent="Enter valid numbers.";return}
+  var amt=b*r/100,lots=amt/(s*p);$("out").innerHTML="Risk amount: <b>$"+amt.toFixed(2)+"</b><br>Position size: <b>"+lots.toFixed(3)+" lots</b>"}
+["bal","risk","sl","pv"].forEach(function(i){$(i).addEventListener("input",calc)});
+draw();calc();
 </script>
 </body>
-</html>
+      </html>
+                                                                                                                                                                           
